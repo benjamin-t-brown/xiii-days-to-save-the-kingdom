@@ -1,0 +1,72 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "mapexample.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "mapexample.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 215.66666666666663,
+                "y": 129
+            }
+        },
+        "scratch/control.tsx": {
+            "scaleInDock": 1
+        },
+        "scratch/map1.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 296.25,
+                "y": 179.25
+            }
+        },
+        "scratch/mapexample.tmx": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 306.625,
+                "y": 124.875
+            }
+        },
+        "scratch/tileset_hex.tsx": {
+            "scaleInDock": 1
+        },
+        "tileset.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "tileset_hex.tsx": {
+            "scaleInDock": 2
+        }
+    },
+    "last.exportedFilePath": "C:/progs/the-nightmare-cometh/scratch",
+    "last.imagePath": "C:/progs/the-nightmare-cometh/scratch",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.orientation": null,
+    "map.tileHeight": 20,
+    "map.tileWidth": 20,
+    "openFiles": [
+        "mapexample.tmx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "scratch/mapexample.tmx",
+        "mapexample.tmx",
+        "tileset.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

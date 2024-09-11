@@ -1,0 +1,40 @@
+{
+  "name": "js13k2024-xiii-days-to-save-the-kingdom",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite serve src --config ./vite.config.ts",
+    "dist": "http-server --port=9843 dist",
+    "build": "rm -rf dist *.zip && npm run tscompile && tsx scripts/build.js && npm run clean:js",
+    "tscompile": "tsc -p ./tsconfig.json",
+    "test": "vitest",
+    "clean": "npm run clean:js && rm -rf dist *.zip",
+    "clean:js": "rm -rf src/*.js src/*.js.map"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.7.14",
+    "@types/node": "20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "@vitest/ui": "^2.0.5",
+    "ect-bin": "^1.4.1",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "google-closure-compiler": "^20240317.0.0",
+    "happy-dom": "^10.10.0",
+    "html-minifier": "^4.0.0",
+    "http-server": "^14.1.1",
+    "jsdom": "^24.1.1",
+    "pngjs": "^7.0.0",
+    "prettier": "^2.7.1",
+    "roadroller": "^2.1.0",
+    "terser": "^5.31.6",
+    "tsx": "^4.18.0",
+    "typescript": "^5.5.4",
+    "uglify-js": "^3.19.2",
+    "vite": "^5.4.1",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^2.0.5"
+  }
+}

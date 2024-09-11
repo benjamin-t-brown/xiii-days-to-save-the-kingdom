@@ -1,0 +1,70 @@
+You control a hero unit that has some combat stats and a traversal stat
+  - combat stats
+    - attack
+    - defense
+    - mana
+    - magic power
+- traversal stat gets reset every turn
+- unit has army slots, each has a rps relationship with other units
+  - archers - beats footmen
+  - footmen - beats cavalry
+  - cavalry - beats archers
+- units have tiers up to 3 that increase their power level
+
+Battles happen when hero unit initiates combat 
+- battle takes place on a 1 dimensional line
+  - unites line up at start of line and run at each other, attacking when they meet
+  - each unit has a speed, range, attack, attack speed, defense, health stat
+  - heroes can cast spells to improve stats
+    - haste - increases speed
+    - slow - decreases speed
+    - fireball - shoot a sine/wave fireball that hits a segment of the line
+    - shield - increases defense
+    - martyrdom - dying units explode dealing damage to nearby units
+    - scry - reveal a part of the map
+    - teleport - move to a different part of the map
+
+Grid based traversal
+- roads cost = 0.5
+- regular terrain = 1
+- thick terrain cost = 1.5
+- non-traversable = 10
+
+You start at a base/castle where you can do the following
+  - ending turn at castle full heals character
+  - can buy levels for gold
+  - can upgrade units tiers
+  - buy new hero unit?
+
+Tiles can contain the following classes of events
+  - blessing - largely increase stat for 3 turns
+  - chest - contains gold/exp
+  - risky chest - grants something random, could be bad (aka nothing)
+  - guarded - a unit blocks the way from standing on this tile
+  - item - Grants the hero a special ability
+  - spellbook - Grants a choice of 3 spells
+  - resource mine - grants gold at the start of every turn if controlled
+  - barracks - can recruit units
+
+Architecture Design
+
+
+
+Ui components
+
+Dialog Window
+  - Confirm Dialog
+  - Info Dialog
+  - Battle
+  - Battle Preview
+Hero bar
+  - hero stats
+  - hero armies
+  - hero spells?
+Minimap? (maybe not necessary)
+Menu Bar
+  - End Turn
+  - Gold
+  - Current Day
+Pathfinding Dots
+
