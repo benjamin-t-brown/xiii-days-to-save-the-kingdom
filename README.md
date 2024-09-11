@@ -1,12 +1,12 @@
 js13k2024 Competition Entry
 
-<!-- [Play here!](https://benjamin-t-brown.github.io/the-nightmare-cometh/) -->
+[Play here!](https://benjamin-t-brown.github.io/xiii-days-to-save-the-kingdom)
 
 Theme: 
 
-Game: The Nightmare Cometh (working title)
+Game: XIII Days To Save The Kingdom
 
-Controls: Click stuff
+Controls: Mouse to navigate.  Space/Enter to confirm dialogs.  Space to re-initiate events on same tile.
 
 Development
 
