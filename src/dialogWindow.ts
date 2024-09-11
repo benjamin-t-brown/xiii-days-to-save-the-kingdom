@@ -316,47 +316,6 @@ export const createDialogWindow = (
         appendChild(storeRenderInner, storeSubArea);
       };
 
-      // const renderUpgList = (upgList: UnitWithStackSizeAndCost[]) => {
-      //   const storeSubArea = createElem(DIV);
-      //   storeSubArea.style.height = '200px';
-      //   storeSubArea.style.overflowY = 'auto';
-      //   for (let i = 0; i < upgList.length; i++) {
-      //     const [unitId, stackSize] = upgList[i];
-      //     const unit = getUnitTemplate(unitId);
-      //     const unitElem = createElem(DIV);
-      //     const upg = getUpgradeForUnit(unitId);
-      //     if (!upg) {
-      //       continue;
-      //     }
-      //     const [upgradeUnitId, costPerUnit] = upg;
-      //     const upgUnit = getUnitTemplate(upgradeUnitId);
-      //     const nextCost = costPerUnit * stackSize;
-      //     const canBuy = game.pl.gold >= nextCost;
-      //     const unitText = `<b>${unit.label}</b> (${stackSize}) -> <b>${
-      //       upgUnit.label
-      //     }</b> (${stackSize}) - ${costPerUnit * stackSize} gold`;
-      //     const unitTextElem = createTextElem(P, unitText);
-      //     appendChild(unitElem, unitTextElem);
-      //     const button = createTextElem('button', 'Upgrade');
-      //     if (!canBuy) {
-      //       setDisabled(button, true);
-      //     }
-      //     button.onclick = () => {
-      //       console.log('UPGRADE', unitId, upgradeUnitId);
-      //       if (canBuy) {
-      //         game.pl.gold -= nextCost;
-      //         upgList[i][0] = upgradeUnitId;
-      //         console.log('REMOVE SUB AREA', nextCost);
-      //         storeRenderInner.remove();
-      //         renderInner();
-      //       }
-      //     };
-      //     appendChild(unitElem, button);
-      //     appendChild(storeSubArea, unitElem);
-      //   }
-      //   appendChild(storeRenderInner, storeSubArea);
-      // };
-
       let storeRenderInner;
       const renderInner = () => {
         storeRenderInner = createElem(DIV);

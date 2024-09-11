@@ -43,7 +43,7 @@ export const calculateUnitRating = (
 ) => {
   const att = unit.getStat(STAT_ATTACK, statContext) - 5;
   const def = unit.getStat(STAT_DEFENSE, statContext);
-  const hp = 0;
+  const hp = Math.floor(unit.getStat(STAT_MAX_HEALTH, statContext) / 50);
   let rating = (1 + normalize(att + def + hp + 1, 1, 10, 0, 100) / 100).toFixed(
     2
   );
@@ -149,6 +149,7 @@ export class BattleSimulation {
     Object.assign(_combatLog.style, {
       height: '100px',
       overflowY: 'scroll',
+      overflowX: 'hidden',
       background: '#333',
       color: 'white',
     });
@@ -226,7 +227,7 @@ export class BattleSimulation {
     );
     const minDmg = Math.max(
       1,
-      maxDmg - Math.floor(maxDmg * attacker[STAT_ATTACK_VAR_PCT]) - def
+      maxDmg - Math.floor(maxDmg * attacker[STAT_ATTACK_VAR_PCT])
     );
 
     const minNextStack = this.calculateNextStackSize(

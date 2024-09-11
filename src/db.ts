@@ -524,7 +524,7 @@ const initBattleUnitTemplates = () => {
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FOOTMAN3, 'Champions', 22, {
     [attack]: 12,
-    [defense]: 10,
+    [defense]: 7,
     [health]: 50,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_ARCHER1, 'Archers', 28, {
@@ -570,7 +570,7 @@ const initBattleUnitTemplates = () => {
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND2, 'Beasts', 15, {
     [attack]: 9,
     [defense]: 5,
-    [health]: 500,
+    [health]: 250,
     [speed]: 5,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND3, 'Skulls', 37, {
