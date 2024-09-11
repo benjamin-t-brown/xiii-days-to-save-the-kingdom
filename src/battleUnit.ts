@@ -74,12 +74,12 @@ export const isMagical = (unitClassId: number) => {
 // const maxHealth = 'maxHealth';
 // const speed = 'speed';
 // const attackVarPct = 'attackVarPct';
-export const STAT_ATTACK = 'attack',
-  STAT_DEFENSE = 'defense',
-  STAT_HEALTH = 'health',
-  STAT_MAX_HEALTH = 'maxHealth',
-  STAT_SPEED = 'speed',
-  STAT_ATTACK_VAR_PCT = 'attackVarPct';
+export const STAT_ATTACK = 'att',
+  STAT_DEFENSE = 'def',
+  STAT_HEALTH = 'hp',
+  STAT_MAX_HEALTH = 'mhp',
+  STAT_SPEED = 'spd',
+  STAT_ATTACK_VAR_PCT = 'avp';
 
 type BattleUnitOwner = 'player' | 'cpu';
 
@@ -91,7 +91,7 @@ interface AnimationSubState {
 
 const createAnimationSubState = (): AnimationSubState => {
   return {
-    vBump: createLoopAnimWithTimer(50, 949494, 1),
+    vBump: createLoopAnimWithTimer(50, 100, 1),
     hBump: createLoopAnimWithTimer(75, 75 * 3, 1),
     flicker: createLoopAnimWithTimer(100, 300, 1),
   };
@@ -111,12 +111,12 @@ export interface BattleUnit {
   pos: Point;
 
   stackSize: number;
-  attack: number;
-  attackVarPct: number;
-  defense: number;
-  health: number;
-  maxHealth: number;
-  speed: number;
+  att: number;
+  avp: number;
+  def: number;
+  hp: number;
+  mhp: number;
+  spd: number;
 
   owner: BattleUnitOwner;
   hero?: BattleHero;

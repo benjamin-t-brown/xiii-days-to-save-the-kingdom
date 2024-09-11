@@ -15,6 +15,8 @@ const DEFAULT_TEXT_PARAMS = {
   strokeColor: 'black',
 };
 
+const IMAGE_SMOOTHING_ENABLED = 'imageSmoothingEnabled';
+
 let fm = 1;
 export const setFm = (n: number) => {
   fm = n;
@@ -69,8 +71,9 @@ export const drawRect = (
   ctx?: CanvasRenderingContext2D
 ) => {
   ctx = ctx || getCtx();
-  ctx[stroke ? 'strokeStyle' : 'fillStyle'] = color;
-  ctx[stroke ? 'strokeRect' : 'fillRect'](x, y, w, h);
+  const strokeKey = stroke ? 'stroke' : 'fill';
+  ctx[strokeKey + 'Style'] = color;
+  ctx[strokeKey + 'Rect'](x, y, w, h);
 };
 
 export const drawText = (
@@ -188,11 +191,11 @@ export const loadSpritesheet = (
         spriteWidth,
         spriteHeight
       );
-      const whiteMap = new Map();
-      const WHITE = '255,255,255';
-      whiteMap.set(WHITE, WHITE + ',0');
-      const s = createReplaceColorSprite(s1, spriteName, whiteMap);
-      const flipped = createFlippedImg(spriteToCanvas(s));
+      // const whiteMap = new Map();
+      // const WHITE = '255,255,255';
+      // whiteMap.set(WHITE, WHITE + ',0');
+      // const s = createReplaceColorSprite(s1, spriteName, whiteMap);
+      const flipped = createFlippedImg(spriteToCanvas(s1));
       const flippedSprite = createSprite(
         `${spriteName}_f`,
         flipped,
@@ -204,7 +207,7 @@ export const loadSpritesheet = (
       const blueToRedColorMap = new Map();
       blueToRedColorMap.set('47,191,218', '255,83,74,255');
       blueToRedColorMap.set('77,97,156', '169,59,59,255');
-      createReplaceColorSprite(s, `${spriteName}_r`, blueToRedColorMap);
+      createReplaceColorSprite(s1, `${spriteName}_r`, blueToRedColorMap);
       createReplaceColorSprite(
         flippedSprite,
         `${spriteName}_r_f`,
@@ -247,7 +250,7 @@ export const createCanvas = (
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-  ctx.imageSmoothingEnabled = false;
+  ctx[IMAGE_SMOOTHING_ENABLED] = false;
   return [canvas, ctx, width, height];
 };
 
@@ -260,13 +263,13 @@ export const getCanvas = (): HTMLCanvasElement => {
     canvas.id = 'canv';
     ctx.lineWidth = 2;
     // canvas.style.transform = 'scale(4)';
-    (window as any).canvasDiv.appendChild(canvas);
+    (window as any).cdv.appendChild(canvas);
     const setCanvasSize = () => {
       const [canvas2, ctx2] = createCanvas(canvas.width, canvas.height);
       ctx2.drawImage(canvas, 0, 0);
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      ctx.imageSmoothingEnabled = false;
+      ctx[IMAGE_SMOOTHING_ENABLED] = false;
       ctx.drawImage(canvas2, 0, 0);
     };
     // window.addEventListener('resize', setCanvasSize);

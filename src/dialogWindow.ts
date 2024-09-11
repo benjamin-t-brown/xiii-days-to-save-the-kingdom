@@ -19,7 +19,7 @@ import {
 } from './db';
 import { createCanvas, getSprite, spriteToCanvas } from './draw';
 import { Game } from './game';
-import { playSound } from './utils';
+import { playSound, utilsAddEventListener } from './utils';
 
 type UnitWithStackSizeAndCost = [number, number, number];
 
@@ -72,7 +72,7 @@ export const clickOkayOnKeyPress = (btn: any) => {
       btn.onclick(e);
     }
   };
-  addEventListener('keydown', listener);
+  utilsAddEventListener(window, 'keydown', listener);
 };
 
 const setDisabled = (elem: HTMLButtonElement, disabled: boolean) => {
@@ -110,23 +110,34 @@ export const createDialogWindow = (
   const P = 'p';
   const SPAN = 'span';
 
+  const JUSTIFY_CONTENT = 'justify-content';
+  const POSITION = 'position';
+  const WIDTH = 'width';
+  const HEIGHT = 'height';
+  const DISPLAY = 'display';
+  const ALIGN_ITEMS = 'align-items';
+
+  const setStyle = (elem: HTMLElement, style: Record<string, any>) => {
+    Object.assign(elem.style, style);
+  };
+
   const anyParams = params as any;
   const bg = createElem(DIV);
-  Object.assign(bg.style, {
-    width: '100%',
-    height: '100%',
-    position: 'fixed',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+  setStyle(bg, {
+    [WIDTH]: '100%',
+    [HEIGHT]: '100%',
+    [POSITION]: 'fixed',
+    [DISPLAY]: 'flex',
+    [JUSTIFY_CONTENT]: 'center',
+    [ALIGN_ITEMS]: 'center',
     top: 0,
     left: 0,
   });
   bg.id = 'dialog';
   const base = createElem(DIV);
-  Object.assign(base.style, {
-    width: '650px',
-    backgroundColor: 'black',
+  setStyle(base, {
+    [WIDTH]: '675px',
+    background: '#000',
     padding: '20px',
   });
   appendChild(bg, base);
@@ -149,9 +160,10 @@ export const createDialogWindow = (
     const imgElem = createElem('img');
     const canv = spriteToCanvas(getSprite(sprite));
     imgElem.src = canv.toDataURL();
-    Object.assign(imgElem.style, {
-      width: '64px',
-      height: '64px',
+    const px = '64px';
+    setStyle(imgElem, {
+      [WIDTH]: px,
+      [HEIGHT]: px,
       imageRendering: 'pixelated',
     });
     return imgElem;
@@ -169,11 +181,15 @@ export const createDialogWindow = (
 
   const createSpanGoldElem = () => {
     const spanElemGold = createElem(DIV);
-    spanElemGold.style.position = 'relative';
-    spanElemGold.style.display = 'inline-block';
+    setStyle(spanElemGold, {
+      [POSITION]: 'relative',
+      [DISPLAY]: 'inline-block',
+    });
     const imageElemGold = createImgElem('ts_18');
-    imageElemGold.style.position = 'absolute';
-    imageElemGold.style.transform = 'translate(-12px, -38px)';
+    setStyle(imageElemGold, {
+      [POSITION]: 'absolute',
+      transform: 'translate(-12px, -38px)',
+    });
     appendChild(spanElemGold, imageElemGold);
     return spanElemGold;
   };
@@ -182,7 +198,7 @@ export const createDialogWindow = (
     case 'info': {
       addBodyTextImage();
       const buttonsElem = createElem(P);
-      Object.assign(buttonsElem.style, {
+      setStyle(buttonsElem, {
         textAlign: 'right',
       });
       const okButton = createTextElem('button', 'OK');
@@ -215,8 +231,10 @@ export const createDialogWindow = (
         ) => void
       ) => {
         const storeSubArea = createElem(DIV);
-        storeSubArea.style.height = '150px';
-        storeSubArea.style.overflowY = 'auto';
+        setStyle(storeSubArea, {
+          [HEIGHT]: '150px',
+          overflowY: 'auto',
+        });
         for (const itemId of items) {
           const item = getItemTemplate(itemId);
           const itemElem = createElem(P);
@@ -229,13 +247,17 @@ export const createDialogWindow = (
           if (item.stats) {
             const itemStatText = getStatsDialogText(item.stats);
             const itemStatElem = createTextElem(SPAN, itemStatText);
-            itemStatElem.style.marginLeft = '54px';
+            setStyle(itemStatElem, {
+              marginLeft: '54px',
+            });
             appendChild(span, itemStatElem);
           }
 
           // appendChild(itemElem, itemTextElem);
           const button = createTextElem('button', buttonText);
-          button.style.marginRight = '16px';
+          setStyle(button, {
+            marginRight: '16px',
+          });
           button.onclick = () => {
             onClick(itemId, item, itemElem);
             storeRenderInner.remove();
@@ -256,8 +278,9 @@ export const createDialogWindow = (
       const renderRecruitList = (recruitList: UnitWithStackSizeAndCost[]) => {
         const storeSubArea = createElem(DIV);
 
-        storeSubArea.style.height = '154px';
-        // storeSubArea.style.overflowY = 'auto';
+        setStyle(storeSubArea, {
+          [HEIGHT]: '154px',
+        });
         for (const [unitId, stackSize, cost] of recruitList) {
           const unit = getUnitTemplate(unitId);
           const unitElem = createElem(DIV);
@@ -268,20 +291,21 @@ export const createDialogWindow = (
             unitText,
             createSpanGoldElem()
           );
-          // unitTextElem.style.transform = 'translateY(32px)';
           appendChild(unitElem, unitTextElem);
 
           const divButton = createElem(DIV);
-          divButton.style.display = 'flex';
-          divButton.style.flexDirection = 'column';
-          divButton.style.alignItems = 'flex-start';
+          setStyle(divButton, {
+            [DISPLAY]: 'flex',
+            flexDirection: 'column',
+            [ALIGN_ITEMS]: 'flex-start',
+          });
 
           const imageElemRecruit = createImgElem('ts_' + unit.sprInd);
-          // imageElemRecruit.style.transform = 'translate(101px, 16px)';
 
           const button = createTextElem('button', 'Recruit');
-          button.style.marginTop = '8px';
-          // button.style.transform = 'translateX(280px)';
+          setStyle(button, {
+            marginTop: '8px',
+          });
 
           button.onclick = () => {
             if (game.pl.gold >= cost) {
@@ -291,6 +315,9 @@ export const createDialogWindow = (
               storeRenderInner.remove();
               renderInner();
               playSound('blip');
+              const currentTile =
+                game.map.tiles[game.pl.y * game.map.w + game.pl.x];
+              currentTile.eventUsed = true;
             }
           };
 
@@ -309,7 +336,9 @@ export const createDialogWindow = (
             P,
             'You have already recruited these units.'
           );
-          itemTextElem.style.color = 'red';
+          setStyle(itemTextElem, {
+            color: 'grey',
+          });
           appendChild(storeSubArea, itemTextElem);
         }
 
@@ -324,7 +353,9 @@ export const createDialogWindow = (
           'You have ' + game.pl.gold + ' gold',
           createSpanGoldElem()
         );
-        goldTextElem.style.color = 'yellow';
+        setStyle(goldTextElem, {
+          color: 'yellow',
+        });
         appendChild(storeRenderInner, goldTextElem);
         if (store.items) {
           appendChild(storeRenderInner, createTextElem(P, '<b>BUY ITEMS</b>'));
@@ -371,7 +402,7 @@ export const createDialogWindow = (
       appendChild(base, storeArea);
 
       const buttonsElem = createElem(P);
-      Object.assign(buttonsElem.style, {
+      setStyle(buttonsElem, {
         textAlign: 'right',
       });
       const okButton = createTextElem('button', 'OK');
@@ -388,37 +419,25 @@ export const createDialogWindow = (
       appendChild(base, titleElem);
 
       const actionsArea = createElem(DIV);
-      // const infoArea = createTextElem(P, 'Drag units to change formation.');
-      // appendChild(actionsArea, infoArea);
-      // const waitButton = createTextElem('button', 'Fight!');
-      // waitButton.onclick = () => {
-      //   anyParams.sim.start();
-      //   // anyParams.sim.wait();
-      // };
-      // appendChild(actionsArea, waitButton);
-      // const defendButton = createTextElem('button', 'Defend');
-      // defendButton.onclick = () => {
-      //   // anyParams.sim.defend();
-      // };
-      // appendChild(actionsArea, defendButton);
       appendChild(base, actionsArea);
 
       const [canv, ctx] = createCanvas(650, 350);
       appendChild(base, canv);
 
       const fightArea = createElem(DIV);
-      Object.assign(fightArea.style, {
-        display: 'flex',
-        justifyContent: 'center',
+      setStyle(fightArea, {
+        [DISPLAY]: 'flex',
+        [JUSTIFY_CONTENT]: 'center',
         marginTop: '4px',
-        // alignItems: 'center',
       });
       const retreatButton = createTextElem('button', 'Retreat');
       retreatButton.onclick = () => {
         sim.onCompleted('retreat');
         cl.remove();
       };
-      retreatButton.style['margin-right'] = '16px';
+      setStyle(retreatButton, {
+        marginRight: '16px',
+      });
       appendChild(fightArea, retreatButton);
       const fightButton = createTextElem('button', 'FIGHT!');
       fightButton.onclick = () => {

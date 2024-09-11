@@ -1,6 +1,7 @@
 import {
   activateLoopAnimWithTimer,
   createLoopAnimWithTimer,
+  LoopAnimWithTimer,
   updateLoopAnimWithTimer,
 } from './anim';
 import { AutomatedController } from './automatedController';
@@ -227,6 +228,8 @@ export class HexTile {
   spr: string;
   event: Partial<EventTemplate> | undefined;
 
+  eventUsed = false;
+
   battleAnim = createLoopAnimWithTimer(500, Infinity, 1);
 
   px: number;
@@ -241,7 +244,13 @@ export class HexTile {
     updateLoopAnimWithTimer(this.battleAnim, dt);
   }
 
-  draw(x: number, y: number, scale: number, drawBlack = false) {
+  draw(
+    x: number,
+    y: number,
+    scale: number,
+    drawBlack = false,
+    flagAnim: LoopAnimWithTimer
+  ) {
     this.px = x;
     this.py = y;
     if (drawBlack) {
@@ -258,6 +267,14 @@ export class HexTile {
         yOffset = -1 * scale;
       }
       drawSprite('ts_' + unit.sprInd + '_r_f', x, y + yOffset, scale);
+    }
+    if (this.eventUsed) {
+      drawSprite(
+        'ts_' + (25 + flagAnim.ind) + '_r',
+        x + scale / 2,
+        y - 7 * scale,
+        scale
+      );
     }
   }
 }
@@ -355,7 +372,7 @@ export class WorldMap {
         const refTile = this.tiles[tileIndex];
         const drawX = (x * tileSize + offsetAmount) * newScale;
         const drawY = y * ((tileSize * 3) / 4) * newScale;
-        refTile.draw(drawX, drawY, newScale, this.fog[tileIndex]);
+        refTile.draw(drawX, drawY, newScale, this.fog[tileIndex], pl.flagAnim);
 
         // debug
         // drawText(
@@ -422,90 +439,12 @@ export class Game {
   hovTile: HexTile | undefined;
 
   constructor() {
-    this.map = new WorldMap(this, 'exampleMap');
+    this.map = new WorldMap(this, 'map');
     this.map.determineVision([this.pl.x, this.pl.y]);
     this.pl.addItem(0);
     getPanZoom().scale = 4;
     lookAt(this.pl.x * 16 * 4, this.pl.y * 16 * 4);
     this.doEvent(getEventTemplate(EVENT_DAY_START)(this, 0, 0));
-
-    // const button = document.createElement('button');
-    // button.innerText = 'click me';
-    // button.onclick = () => {
-    //   // const battleUnit1 = createBattleUnit();
-    //   const template1 = getUnitTemplate(BATTLE_UNIT_CLASS_FOOTMAN1);
-    //   const battleUnit1 = createBattleUnitFromTemplate(template1, 1);
-    //   const battleUnit2 = createBattleUnitFromTemplate(template1, 1);
-
-    //   for (let i = 5; i < 20; i++) {
-    //     battleUnit1.attack = i;
-    //     console.log(
-    //       'Rating at ' + battleUnit1.attack + ':',
-    //       calculateUnitRating(battleUnit1, {})
-    //     );
-    //   }
-
-    //   battleUnit1.attack = 9;
-    //   console.log('TEMPLATE1?', template1, battleUnit1, battleUnit2);
-    //   battleUnit2.label = 'enemy1';
-
-    //   // battleUnit1.speed = 20;
-    //   // battleUnit2.speed = 25;
-    //   // battleUnit1.atSpeed = 20;
-
-    //   // battleUnit3.speed = 10;
-    //   // battleUnit4.speed = 10;
-
-    //   // battleUnit1.attack =
-    //   //   battleUnit2.attack =
-    //   //   battleUnit3.attack =
-    //   //   battleUnit4.attack =
-    //   //     7;
-    //   // battleUnit1.stackSize = 5;
-    //   // battleUnit2.stackSize = 20;
-    //   // battleUnit3.stackSize = 16;
-    //   // battleUnit4.stackSize = 2;
-    //   // battleUnit1.health =
-    //   //   battleUnit2.health =
-    //   //   battleUnit3.health =
-    //   //   battleUnit4.health =
-    //   //     10;
-    //   // battleUnit1.maxHealth =
-    //   //   battleUnit2.maxHealth =
-    //   //   battleUnit3.maxHealth =
-    //   //   battleUnit4.maxHealth =
-    //   //     10;
-    //   // battleUnit1.attackVarPct =
-    //   //   battleUnit2.attackVarPct =
-    //   //   battleUnit3.attackVarPct =
-    //   //   battleUnit4.attackVarPct =
-    //   //     0.5;
-
-    //   // const sim = createBattleSimulation(
-    //   //   [battleUnit1, battleUnit2],
-    //   //   [battleUnit5]
-    //   // );
-    //   console.log('create sim');
-    //   const sim = new BattleSimulation([battleUnit1], [battleUnit2]);
-    //   const d = createDialogWindow(
-    //     'battle',
-    //     {
-    //       sim,
-    //     },
-    //     this
-    //   );
-    //   sim.onCompleted = (c: 'win' | 'lose') => {
-    //     this.sim = undefined;
-    //   };
-    //   this.sim = sim;
-    //   d.show();
-    // };
-    // Object.assign(button.style, {
-    //   position: 'absolute',
-    //   top: '10px',
-    //   left: '10px',
-    // });
-    // document.body.appendChild(button);
   }
 
   areInputEventsDisabled() {
@@ -549,22 +488,25 @@ export class Game {
         },
         this
       );
+      const ind = (event.battle as any).tileInd;
+      const tile = this.map.tiles[ind];
+      lookAt(tile.px, tile.py);
       this.sim = sim;
       sim.onCompleted = (c: 'win' | 'lose' | 'retreat') => {
         this.sim = undefined;
-        const ind = (event.battle as any).tileInd;
+        // const ind = (event.battle as any).tileInd;
         if (c === 'win') {
           removeEventAtTile(this, ind);
           this.pl.unit[1] = sim.leftDepict.stackSize;
-          playSound('army_defeated');
+          playSound('blip');
         }
         if (c === 'retreat') {
           const secondLastPath = this.pl.path[this.pl.path.length - 2];
           this.pl.x = secondLastPath[0];
           this.pl.y = secondLastPath[1];
         }
-        const tile = this.map.tiles[ind];
-        lookAt(tile.px, tile.py);
+        // const tile = this.map.tiles[ind];
+        // lookAt(tile.px, tile.py);
         if (c === 'lose') {
           this.doEvent(getEventTemplate(EVENT_DAY_LOSS)(this, 0, 0));
         }
@@ -610,8 +552,8 @@ export class Game {
   draw() {
     const drawPlayerInfo = () => {
       const ctx = getCtx();
-      const x = 20;
-      const y = ctx.canvas.height - 200;
+      const x = 50;
+      const y = ctx.canvas.height - 250;
       const lineHeight = 18;
       const textParams: Partial<DrawTextParams> = {
         align: 'left',
@@ -630,7 +572,7 @@ export class Game {
         y + lineHeight * 2,
         textParams
       );
-      const stats = ['attack', 'defense', 'speed'];
+      const stats = [STAT_ATTACK, STAT_DEFENSE, STAT_SPEED];
       for (let i = 0; i < stats.length; i++) {
         const stat = stats[i];
         drawText(
@@ -712,6 +654,11 @@ export class Game {
       let text1Color = 'white';
       const { scale } = getTransform();
       this.map.translateCtx(getCtx());
+      if (this.hovTile.x === this.pl.x && this.hovTile.y === this.pl.y) {
+        const [plRating] = getStackSizeAndRating(this.pl.unit, this.pl.hero);
+        text2 = 'Heros Army (' + this.pl.unit[1] + ')';
+        text = 'Troop Rating: ' + plRating;
+      }
       if (text) {
         if (this.hovTile.event?.battle) {
           const def = getBattleDefFromEvent(this.hovTile.event, [])!;

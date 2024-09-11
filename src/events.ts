@@ -379,7 +379,7 @@ export const initEvents = (game: Game) => {
       focusOn(ev.clientX, ev.clientY, nextScale);
     }
   });
-  addEventListener('keydown', (ev) => {
+  utilsAddEventListener(window, 'keydown', (ev) => {
     if (game.areInputEventsDisabled()) {
       return;
     }

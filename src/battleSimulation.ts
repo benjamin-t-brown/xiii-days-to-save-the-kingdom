@@ -26,9 +26,9 @@ import { normalize, playSound, randInArr } from './utils';
 import { rand } from './zzfx';
 
 export interface BattleHero {
-  attack: number;
-  defense: number;
-  speed: number;
+  att: number;
+  def: number;
+  spd: number;
   // magicPower: number;
   // mana: number;
   // maxMana: number;
@@ -58,26 +58,22 @@ export const calculateUnitRating = (
 
 export const createDepictUnit = (units: BattleUnit[]) => {
   const baseUnit = createBattleUnit(0);
+  const unit = units[0];
   baseUnit.ro.scale = 8;
-  for (const unit of units) {
-    baseUnit.stackSize = unit.stackSize;
-    // if (unit.attack > baseUnit.attack) {
-    baseUnit[STAT_ATTACK] = unit[STAT_ATTACK];
-    baseUnit[STAT_SPEED] = unit[STAT_SPEED];
-    // }
-    // if (unit.defense > baseUnit.defense) {
-    baseUnit[STAT_DEFENSE] = unit[STAT_DEFENSE];
-    // }
-    // if (unit.maxHealth > baseUnit.maxHealth) {
-    baseUnit[STAT_MAX_HEALTH] = unit[STAT_MAX_HEALTH];
-    baseUnit[STAT_HEALTH] = unit[STAT_HEALTH];
-    // }
-    // if (unit.attackVarPct > baseUnit.attackVarPct) {
-    baseUnit[STAT_ATTACK_VAR_PCT] = unit[STAT_ATTACK_VAR_PCT];
-    // }
-    baseUnit.ro.sprite = unit.ro.sprite;
-    baseUnit.label = unit.label;
+  const stats = [
+    STAT_ATTACK,
+    STAT_DEFENSE,
+    STAT_MAX_HEALTH,
+    STAT_HEALTH,
+    STAT_SPEED,
+    STAT_ATTACK_VAR_PCT,
+  ];
+  for (const stat of stats) {
+    baseUnit[stat] = unit[stat];
   }
+  baseUnit.stackSize = unit.stackSize;
+  baseUnit.ro.sprite = unit.ro.sprite;
+  baseUnit.label = unit.label;
   return baseUnit;
 };
 

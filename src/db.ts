@@ -54,10 +54,6 @@ export const BATTLE_UNIT_CLASS_FOOTMAN1 = 0,
 export const initDb = async () => {
   initDbSounds();
 
-  if ((window as any).asdf) {
-    zzfxPlaySound([]);
-  }
-
   initTileCosts();
   initBattleUnitTemplates();
   initUnitTemplateLists();
@@ -78,42 +74,42 @@ export const getTilePathCost = (tileId: number) => {
 export const getSound = (soundName: string) => {
   const s = dbSounds.get(soundName);
   if (!s) {
-    throw new Error('No sound: ' + soundName);
+    // throw new Error('No sound: ' + soundName);
   }
-  return s;
+  return s as (number | undefined)[];
 };
 
 export const getMapTemplate = (mapName: string) => {
   const m = dbMaps.get(mapName);
   if (!m) {
     console.log('templates', dbMaps);
-    throw new Error('No map template: ' + mapName);
+    // throw new Error('No map template: ' + mapName);
   }
-  return m;
+  return m as MapTemplate;
 };
 
 export const getEventTemplate = (eventEnumId: number) => {
   const ev = eventTable.get(eventEnumId);
   if (!ev) {
-    throw new Error('No event: ' + eventEnumId);
+    // throw new Error('No event: ' + eventEnumId);
   }
-  return ev;
+  return ev as (...any) => Partial<EventTemplate>;
 };
 
 export const getUnitTemplate = (unitClassId: number) => {
   const unit = battleUnitTemplates.get(unitClassId);
   if (!unit) {
-    throw new Error('No unit: ' + unitClassId);
+    // throw new Error('No unit: ' + unitClassId);
   }
-  return unit;
+  return unit as BattleUnitTemplate;
 };
 
 export const getItemTemplate = (itemId: number) => {
   const item = itemTemplates.get(itemId);
   if (!item) {
-    throw new Error('No item: ' + itemId);
+    // throw new Error('No item: ' + itemId);
   }
-  return item;
+  return item as ItemTemplate;
 };
 
 const initTileCosts = () => {
@@ -143,7 +139,7 @@ const initDbSounds = () => {
   // prettier-ignore
   dbSounds.set('item', [,,397,.02,.05,.18,1,2.3,,-23,465,.06,.06,,,,,.56,.02]);
   // prettier-ignore
-  dbSounds.set('army_defeated', [,0,855,.37,.03,.21,4,3,-1,85,-124,.79,.13,,,,.23,.84,.02,.15,891]);
+  // dbSounds.set('army_defeated', [,0,855,.37,.03,.21,4,3,-1,85,-124,.79,.13,,,,.23,.84,.02,.15,891]);
   // prettier-ignore
   dbSounds.set('lose', [1.3,,31,,.19,.004,3,4,,,-329,.33,,,35,,.37,,.4,.03]);
   // prettier-ignore
@@ -167,47 +163,11 @@ const initDbSounds = () => {
   // prettier-ignore
   dbSounds.set('ready_to_fight', [1.9,,330,.32,.36,.29,,2.7,,,46,,,,53,,.35,.91,.03]);
   // prettier-ignore
-  dbSounds.set('visit_tower', [1.1,,640,.02,.03,.01,2,1.2,-4,,-225,.09,.06,,26,,.19,.52,.03,.05,725]);
+  // dbSounds.set('visit_tower', [1.1,,640,.02,.03,.01,2,1.2,-4,,-225,.09,.06,,26,,.19,.52,.03,.05,725]);
   // prettier-ignore
   dbSounds.set('visit_village', [1.1,,640,.02,.03,.01,2,1.2,-4,,-225,.09,.06,,26,,.19,.52,.03,.05,725]);
   // prettier-ignore
-  dbSounds.set('new_turn', [2.3,0,174,.49,1,.22,1,4,,,,,,.5,,,.08,.4,.07,,150]);
-  // // prettier-ignore
-  // dbSounds.itemPlace = [,0,104,,.15,.03,2,.38,,-61,,,.15,,,,,,.02,.36];
-  // // prettier-ignore
-  // dbSounds.doorOpen = [1.75,,151,.03,.01,.19,2,1.33,-9,,,,,.1,,,,.19,.01];
-  // // prettier-ignore
-  // dbSounds.doorClose = [1.24,,339,.12,.05,0,1,.42,-24,.1,,,.08,,-19,.6,,,,.79];
-  // // prettier-ignore
-  // dbSounds.fill = [1.09,,0,.19,,.02,,2.31,92,-25,927,,,,-1.4,.9,,.5,.09];
-  // // prettier-ignore
-  // dbSounds.moleDead = [2.1,,1360,.06,.09,.2,2,1.63,,,,,,.9,-0.4,.1,.03,.57,,.01];
-  // // prettier-ignore
-  // dbSounds.moleAlert = [,,169,,.13,,2,2.18,.1,-7,,,.11,.6,,,,,.18,.05];
-  // // prettier-ignore
-  // dbSounds.plusOne = [1.12,,73,.02,.18,.06,2,.87,,,-190,.11,,,,,,.82,.01,.29];
-  // // prettier-ignore
-  // dbSounds.drawSword = [,,455,,.09,.01,2,2.31,,,-758,.01,.02,,,,,,.2,.59]
-  // // prettier-ignore
-  // dbSounds.swingSword = [,,232,.07,.02,0,4,.27,29,75,,,,.1,,,,,,.02];
-  // // prettier-ignore
-  // dbSounds.patronAngry = [1.29,,322,.03,.17,0,,.55,,-89,-843,.15,.09,.3,-234,,.02,,.09];
-  // // prettier-ignore
-  // dbSounds.dumpBucket = [1.99,,246,,.07,.03,4,.66,47,32,,,,,-0.4,,.25,,.13,.83];
-  // // prettier-ignore
-  // dbSounds.hitS = [1.04,,772,,.07,.06,2,.31,90,-15,590,.02,,,,.3,,.47,.03];
-  // // prettier-ignore
-  // dbSounds.fire = [1.06,,1028,.11,.14,.03,4,.15,-4.8,,-690,.18,,.1,,.4,.07,.99,.15];
-  // // prettier-ignore
-  // dbSounds.dc = [,,80,.04,.03,.2,4,.34,-0.3,,,,,,-9.9,,,,.18];
-  // // prettier-ignore
-  // dbSounds.levelDone = [1.04,,3,.06,.09,.09,1,.84,,14,,,,,5.2,,,.43,.13];
-  // // prettier-ignore
-  // dbSounds.levelScreen = [1.85,,123,.15,.15,.01,2,1.15,,-54,,,.26,,.3,,.06,.7,.03,.04];
-  // // prettier-ignore
-  // dbSounds.startLevel = [1.05,,0,.01,.17,.17,1,1.56,,73,225,.01,.09,,-0.1,,,.43];
-  // // prettier-ignore
-  // dbSounds.timerTick = [,,1091,.18,.02,.17,4,.91,,-42,,,,,167,,,,.02];
+  dbSounds.set('new_turn', [2.8,,100,.07,.01,.23,1,3.2,,,,,,,,,.18,.67,.28,.41,105]);
 };
 
 interface MapTemplateLayer {
@@ -249,20 +209,20 @@ const initMapTemplates = async () => {
       data.push(elemNum);
     }
   }
-  dbMaps.set('exampleMap', {
+  dbMaps.set('map', {
     width: map1.width,
     height: map1.height,
     data,
     events,
   });
-  console.log('loaded map', dbMaps.get('exampleMap'));
+  console.log('loaded map', dbMaps.get('map'));
 };
 
 type PartialStats = Partial<{
-  attack: number;
-  defense: number;
-  health: number;
-  speed: number;
+  att: number;
+  def: number;
+  hp: number;
+  spd: number;
 }>;
 export interface ItemTemplate {
   name: string;
@@ -299,24 +259,38 @@ const initItemTemplates = () => {
     });
   };
   createItemTemplate('Crown of Light', 0, 0);
-  for (let i = 0; i < 3; i++) {
-    createItemTemplate('Bronze Sword', 35, 5, { [STAT_ATTACK]: 1 });
-    createItemTemplate('Iron Sword', 55, 10, { [STAT_ATTACK]: 2 });
-    createItemTemplate('Steel Sword', 125, 35, { [STAT_ATTACK]: 3 });
-    createItemTemplate('Sturdy Boots', 30, 5, { [STAT_SPEED]: 1 });
-    createItemTemplate('Swift Boots', 50, 10, { [STAT_SPEED]: 2 });
-    createItemTemplate('Magic Boots', 100, 50, { [STAT_SPEED]: 3 });
-    createItemTemplate('Light Shield', 25, 5, { [STAT_DEFENSE]: 1 });
-    createItemTemplate('Medium Shield', 45, 12, { [STAT_DEFENSE]: 2 });
-    createItemTemplate('Heavy Shield', 90, 50, { [STAT_DEFENSE]: 3 });
+  for (let i = 0; i < 2; i++) {
+    createItemTemplate('Bronze Sword', 75, 15, { [STAT_ATTACK]: 1 });
+    createItemTemplate('Iron Sword', 100, 25, { [STAT_ATTACK]: 2 });
+    createItemTemplate('Steel Sword', 150, 50, { [STAT_ATTACK]: 3 });
+    createItemTemplate('Sturdy Boots', 70, 15, { [STAT_SPEED]: 1 });
+    createItemTemplate('Swift Boots', 90, 25, { [STAT_SPEED]: 2 });
+    createItemTemplate('Magic Boots', 140, 50, { [STAT_SPEED]: 3 });
+    createItemTemplate('Light Shield', 75, 15, { [STAT_DEFENSE]: 1 });
+    createItemTemplate('Medium Shield', 100, 25, { [STAT_DEFENSE]: 2 });
+    createItemTemplate('Heavy Shield', 150, 50, { [STAT_DEFENSE]: 3 });
     // createItemTemplate('Thick Plate', 30, 5, { health: 1 });
     // createItemTemplate('Forged Plate', 50, 15, { health: 2 });
     // createItemTemplate('Diamond Plate', 100, 45, { health: 3 });
-    createItemTemplate('Omni Flower', 150, 100, {
+    createItemTemplate('Power Pendant', 125, 75, {
       [STAT_ATTACK]: 1,
       [STAT_SPEED]: 1,
+      // [STAT_DEFENSE]: 1,
+    });
+    createItemTemplate('Defense Charm', 125, 75, {
+      // [STAT_ATTACK]: 1,
+      [STAT_SPEED]: 1,
       [STAT_DEFENSE]: 1,
-      // health: 1,
+    });
+    createItemTemplate('Yin Yang', 125, 75, {
+      [STAT_ATTACK]: 1,
+      // [STAT_SPEED]: 1,
+      [STAT_DEFENSE]: 1,
+    });
+    createItemTemplate('Omni Flower', 500, 100, {
+      [STAT_ATTACK]: 2,
+      [STAT_SPEED]: 2,
+      [STAT_DEFENSE]: 2,
     });
   }
   resortItemTemplates(storeItemTemplates);
@@ -353,13 +327,13 @@ const initUnitTemplateLists = () => {
   };
   // level, unit, stack, cost
   for (let i = 0; i < 4; i++) {
-    addStoreTemplate(1, BATTLE_UNIT_CLASS_FOOTMAN1, 10 + i * 15, 75 + i * 25);
+    addStoreTemplate(1, BATTLE_UNIT_CLASS_FOOTMAN1, 10 + i * 15, 75 + i * 35);
+  }
+  for (let i = 0; i < 5; i++) {
+    addStoreTemplate(2, BATTLE_UNIT_CLASS_FOOTMAN1, 50 + i * 15, 100 + i * 45);
   }
   for (let i = 0; i < 4; i++) {
-    addStoreTemplate(2, BATTLE_UNIT_CLASS_FOOTMAN1, 50 + i * 15, 100 + i * 40);
-  }
-  for (let i = 0; i < 4; i++) {
-    addStoreTemplate(3, BATTLE_UNIT_CLASS_FOOTMAN1, 100 + i * 25, 100 + i * 50);
+    addStoreTemplate(3, BATTLE_UNIT_CLASS_FOOTMAN1, 100 + i * 25, 100 + i * 55);
   }
   // addStoreTemplate(1, BATTLE_UNIT_CLASS_FOOTMAN1, 10, 75);
   // addStoreTemplate(1, BATTLE_UNIT_CLASS_FOOTMAN1, 25, 100);
@@ -412,8 +386,8 @@ const initUnitTemplateLists = () => {
     ]);
 
     // level 3
-    addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FIEND2, normalizeRand(30, 50)]);
-    addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FIEND3, normalizeRand(60, 80)]);
+    addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FIEND2, normalizeRand(25, 40)]);
+    addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FIEND3, normalizeRand(50, 100)]);
     addEventUnitTemplate(3, [
       BATTLE_UNIT_CLASS_LONGNECK,
       normalizeRand(100, 200),
@@ -436,46 +410,8 @@ const initUnitTemplateLists = () => {
     ]);
   }
 
-  // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_KNIGHT1, 55]);
-  // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_KNIGHT1, 65]);
-  // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_FOOTMAN1, 55]);
-  // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_FOOTMAN1, 65]);
-  // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_ARCHER1, 35]);
-  // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_ARCHER1, 45]);
-  // for (let i = 0; i < 3; i++) {
-  //   addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_FIEND1, 20]);
-  //   addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_FIEND1, 30]);
-  //   addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_FIEND1, 40]);
-  //   addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_FIEND1, 50]);
-  //   // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_FIEND1, 60]);
-  // }
-  // // addEventUnitTemplate(1, [BATTLE_UNIT_CLASS_ARCHER2, 35]);
-
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_FIEND1, 100]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_FIEND1, 125]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_FIEND1, 150]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_LONGNECK, 75]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_LONGNECK, 85]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_LONGNECK, 95]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_FIEND3, 80]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_FIEND3, 90]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_FIEND3, 100]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_KNIGHT2, 75]);
-  // addEventUnitTemplate(2, [BATTLE_UNIT_CLASS_KNIGHT2, 105]);
-
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_LONGNECK, 200]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_LONGNECK, 250]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_MAGE1, 150]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_MAGE1, 175]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_ARCHER3, 150]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_ARCHER3, 175]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_KNIGHT3, 150]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_KNIGHT3, 175]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FOOTMAN3, 225]);
-  // addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FOOTMAN3, 250]);
-
   addEventUnitTemplate(4, [BATTLE_UNIT_CLASS_MAGE1, 300]);
-  addEventUnitTemplate(4, [BATTLE_UNIT_CLASS_FIEND3, 500]);
+  addEventUnitTemplate(4, [BATTLE_UNIT_CLASS_FIEND3, 200]);
   addEventUnitTemplate(4, [BATTLE_UNIT_CLASS_FIEND2, 100]);
 
   storeUnitTemplates = shuffle(storeUnitTemplates);
@@ -528,17 +464,17 @@ const initBattleUnitTemplates = () => {
     [health]: 50,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_ARCHER1, 'Archers', 28, {
-    [speed]: 2,
+    [speed]: 5,
     [health]: 8,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_ARCHER2, 'Crossbows', 29, {
     [attack]: 6,
-    [speed]: 5,
+    [speed]: 10,
     [health]: 8,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_ARCHER3, 'Arbalists', 30, {
     [attack]: 12,
-    [speed]: 7,
+    [speed]: 15,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_KNIGHT1, 'Scouts', 12, {
     [speed]: 3,
@@ -547,20 +483,21 @@ const initBattleUnitTemplates = () => {
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_KNIGHT2, 'Knights', 13, {
     [attack]: 8,
-    [speed]: 4,
+    [speed]: 7,
     [defense]: 2,
     [health]: 40,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_KNIGHT3, 'Cavaliers', 14, {
     [attack]: 12,
-    [speed]: 5,
+    [speed]: 10,
     [defense]: 12,
     [health]: 60,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_MAGE1, 'Mages', 36, {
-    [speed]: 15,
+    [speed]: 16,
     [attack]: 15,
-    [health]: 60,
+    [defense]: 4,
+    [health]: 75,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND1, 'Goblins', 31, {
     [attack]: 4,
@@ -568,16 +505,16 @@ const initBattleUnitTemplates = () => {
     [health]: 6,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND2, 'Beasts', 15, {
-    [attack]: 9,
-    [defense]: 7,
-    [health]: 400,
+    [attack]: 12,
+    [defense]: 6,
+    [health]: 350,
     [speed]: 5,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND3, 'Skulls', 37, {
-    [attack]: 10,
-    [defense]: 5,
+    [attack]: 20,
+    [defense]: 3,
     [health]: 25,
-    [speed]: 2,
+    [speed]: 20,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_LONGNECK, 'Longnecks', 23, {
     [attack]: 10,
@@ -748,7 +685,7 @@ const initEventTable = () => {
     console.log('SET EVENT TABLE TOWER', unitTemplate, level);
     return {
       label: 'Tower',
-      soundName: 'visit_tower',
+      soundName: 'visit_village',
       store: {
         text: 'The Tower can provide you with fresh recruits.',
         sprite: 'ts_17',
@@ -872,7 +809,10 @@ const initEventTable = () => {
     return {
       dialog: {
         ...basicDialogEvent,
-        text: `Hero! The kingdom is in peril!<br><br> You have 13 days to bring the <b>Crown of Light</b> to the capital city in the EAST.  The land is in chaos, and many will try to stop you, but you must persevere.<br><br>If you fail in your quest, we will be lost.  Godspeed.`,
+        text: `Hero! The kingdom is in peril!<br><br> You have 13 days to bring the <b>Crown of Light</b> to the capital city in the EAST.  The land is in chaos, and many of evil intent will try to stop you, but you must persevere.<br><br>If you fail in your quest, we will be lost.  Godspeed.`,
+        onOk: () => {
+          playSound('new_turn');
+        },
       },
     };
   });
