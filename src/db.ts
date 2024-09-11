@@ -524,7 +524,7 @@ const initBattleUnitTemplates = () => {
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FOOTMAN3, 'Champions', 22, {
     [attack]: 12,
-    [defense]: 7,
+    [defense]: 10,
     [health]: 50,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_ARCHER1, 'Archers', 28, {
@@ -558,7 +558,7 @@ const initBattleUnitTemplates = () => {
     [health]: 60,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_MAGE1, 'Mages', 36, {
-    [speed]: 6,
+    [speed]: 15,
     [attack]: 15,
     [health]: 60,
   });
@@ -569,8 +569,8 @@ const initBattleUnitTemplates = () => {
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND2, 'Beasts', 15, {
     [attack]: 9,
-    [defense]: 5,
-    [health]: 250,
+    [defense]: 7,
+    [health]: 400,
     [speed]: 5,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND3, 'Skulls', 37, {
@@ -580,10 +580,10 @@ const initBattleUnitTemplates = () => {
     [speed]: 2,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_LONGNECK, 'Longnecks', 23, {
-    [attack]: 7,
+    [attack]: 10,
     [speed]: 4,
-    [defense]: 3,
-    [health]: 50,
+    [defense]: 5,
+    [health]: 55,
   });
 };
 
