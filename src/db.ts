@@ -656,7 +656,7 @@ const initEventTable = () => {
       soundName: 'battle_win',
       dialog: {
         ...basicDialogEvent,
-        text: `You made it!  You brought us the <b>Crown of Light</b> and the kingdom is saved!`,
+        text: `You made it!  You brought us the <b>Crown of Light</b> and the Kingdom is saved!`,
         onOk: () => {
           window.location.reload();
         },
@@ -768,7 +768,7 @@ const initEventTable = () => {
       soundName: 'new_turn',
       dialog: {
         ...basicDialogEvent,
-        text: `The first day is done, and 12 days remain. Is there still enough time? The kingdom is counting on you.`,
+        text: `The first day is done, and 12 days remain. Is there still enough time? The Kingdom is counting on you.`,
       },
     };
   });
@@ -788,7 +788,7 @@ const initEventTable = () => {
       soundName: 'blip',
       dialog: {
         ...basicDialogEvent,
-        text: `Dawn of the FINAL day. You MUST save the kingdom by day's end or all is lost.`,
+        text: `Dawn of the FINAL day. You MUST save the Kingdom by day's end or all is lost.`,
       },
     };
   });
@@ -797,7 +797,7 @@ const initEventTable = () => {
       soundName: 'fight',
       dialog: {
         ...basicDialogEvent,
-        text: `You have failed to save the kingdom. We are lost.`,
+        text: `You have failed to save the Kingdom. We are lost.`,
         onOk: () => {
           window.location.reload();
         },
