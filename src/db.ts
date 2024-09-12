@@ -387,22 +387,19 @@ const initUnitTemplateLists = () => {
 
     // level 3
     addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FIEND2, normalizeRand(25, 40)]);
-    addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FIEND3, normalizeRand(50, 100)]);
+    addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_FIEND3, normalizeRand(50, 80)]);
     addEventUnitTemplate(3, [
       BATTLE_UNIT_CLASS_LONGNECK,
-      normalizeRand(100, 200),
+      normalizeRand(100, 175),
     ]);
     addEventUnitTemplate(2, [
       BATTLE_UNIT_CLASS_FOOTMAN2,
-      normalizeRand(150, 200),
+      normalizeRand(150, 175),
     ]);
-    addEventUnitTemplate(3, [
-      BATTLE_UNIT_CLASS_KNIGHT3,
-      normalizeRand(50, 100),
-    ]);
+    addEventUnitTemplate(3, [BATTLE_UNIT_CLASS_KNIGHT3, normalizeRand(50, 90)]);
     addEventUnitTemplate(3, [
       BATTLE_UNIT_CLASS_FOOTMAN3,
-      normalizeRand(75, 125),
+      normalizeRand(75, 100),
     ]);
     addEventUnitTemplate(3, [
       BATTLE_UNIT_CLASS_ARCHER3,
@@ -459,9 +456,9 @@ const initBattleUnitTemplates = () => {
     [health]: 25,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FOOTMAN3, 'Champions', 22, {
-    [attack]: 12,
-    [defense]: 10,
-    [health]: 50,
+    [attack]: 11,
+    [defense]: 9,
+    [health]: 45,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_ARCHER1, 'Archers', 28, {
     [speed]: 5,
@@ -488,10 +485,10 @@ const initBattleUnitTemplates = () => {
     [health]: 40,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_KNIGHT3, 'Cavaliers', 14, {
-    [attack]: 12,
+    [attack]: 10,
     [speed]: 10,
-    [defense]: 12,
-    [health]: 60,
+    [defense]: 8,
+    [health]: 50,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_MAGE1, 'Mages', 36, {
     [speed]: 16,
@@ -506,12 +503,12 @@ const initBattleUnitTemplates = () => {
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND2, 'Beasts', 15, {
     [attack]: 12,
-    [defense]: 6,
+    [defense]: 5,
     [health]: 300,
     [speed]: 5,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND3, 'Skulls', 37, {
-    [attack]: 20,
+    [attack]: 15,
     [defense]: 3,
     [health]: 25,
     [speed]: 20,
@@ -520,7 +517,7 @@ const initBattleUnitTemplates = () => {
     [attack]: 10,
     [speed]: 4,
     [defense]: 5,
-    [health]: 55,
+    [health]: 35,
   });
 };
 
