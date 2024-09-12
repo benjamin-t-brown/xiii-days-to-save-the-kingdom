@@ -443,7 +443,7 @@ export class Game {
     this.map.determineVision([this.pl.x, this.pl.y]);
     this.pl.addItem(0);
     getPanZoom().scale = 4;
-    lookAt(this.pl.x * 16 * 4, this.pl.y * 16 * 4);
+    lookAt(this.pl.x * 16 * 4 + 16 * 4, this.pl.y * 16 * 4 - 16 * 4);
     this.doEvent(getEventTemplate(EVENT_DAY_START)(this, 0, 0));
   }
 
