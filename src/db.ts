@@ -479,7 +479,7 @@ const initBattleUnitTemplates = () => {
   createUnitTemplate(BATTLE_UNIT_CLASS_KNIGHT1, 'Scouts', 12, {
     [speed]: 3,
     [defense]: 1,
-    [health]: 20,
+    [health]: 15,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_KNIGHT2, 'Knights', 13, {
     [attack]: 8,
@@ -495,7 +495,7 @@ const initBattleUnitTemplates = () => {
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_MAGE1, 'Mages', 36, {
     [speed]: 16,
-    [attack]: 15,
+    [attack]: 12,
     [defense]: 4,
     [health]: 75,
   });
@@ -507,7 +507,7 @@ const initBattleUnitTemplates = () => {
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND2, 'Beasts', 15, {
     [attack]: 12,
     [defense]: 6,
-    [health]: 350,
+    [health]: 300,
     [speed]: 5,
   });
   createUnitTemplate(BATTLE_UNIT_CLASS_FIEND3, 'Skulls', 37, {
