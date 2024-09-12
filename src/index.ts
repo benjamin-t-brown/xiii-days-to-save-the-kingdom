@@ -25,15 +25,7 @@ export const start = async () => {
 
 const load = async () => {
   console.log('loading...');
-  // await loadImagesAndSprites([['sprite', 'res/sprite.png', 16, 16]]);
-  // const map = await (await fetch('res/map.json')).json();
   await initDb();
-
-  // const cWidth = Number(localStorage.getItem('js13k_tavernity_w'));
-  // if (!isNaN(cWidth) && cWidth > 0) {
-  //   const canvas = getCanvas();
-  //   canvas.style.width = cWidth + 'px';
-  // }
 };
 
 const loop = (game: Game) => {
